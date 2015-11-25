@@ -181,16 +181,23 @@
 
         /**********
          * 展示图片列表
+         * @param me
          * @param minList
          * @param maxList
          */
-        function zoomList(minList, maxList) {
+        function zoomList(me, minList, maxList) {
+            $('#zoom-list').remove();
             var _ = '';
             $.each(minList, function (k, v) {
                 _ += '<img src="' + v + '" data-max-pic="' + maxList[k] + '" />';
             });
             var __zoomList = $('<div class="zoom-list zoom-radius zoom-shadow" id="zoom-list"><div class="zoom-overflow">' + _ + '</div></div>');
+            __zoomList.css({
+                left: $(me).offset().left + 'px',
+                top: ($(me).offset().top + $(me).scrollTop() + $(me).outerHeight(true) + 5) + 'px'
+            });
             $(document.body).append(__zoomList);
+
             __zoomList.on('click', 'img', function (event) {
                 event.stopPropagation();
                 $('#zoom-pic').remove();
@@ -225,10 +232,20 @@
                         break;
                     default:
                         // 显示一组小图，点击小图展示大图
-                        zoomList(getImgSrc(me, me.opt.minData, me.opt.minImg), maxList);
+                        zoomList(me, getImgSrc(me, me.opt.minData, me.opt.minImg), maxList);
                 }
             });
         });
+
+    };
+
+
+    /*****************
+     * 数字格式化
+     * @param options
+     */
+    $.fn.numberFormat = function(options){
+
 
 
     };
