@@ -254,7 +254,7 @@
                 var $target = $(event.target);
                 if ($(this).find('#zoom-pic').length > 0 && $target.closest('#zoom-pic').length === 0) {
                     $('#zoom-pic').remove();
-                } else if ($(this).find('#zoom-list').length > 0 && $target.closest('#zoom-list').length === 0) {
+                } else if ($(this).find('#zoom-list').length > 0 && $target.closest('#zoom-list').length === 0 && $target.closest('#zoom-pic').length === 0) {
                     $('#zoom-list').remove();
                 }
             });

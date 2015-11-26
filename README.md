@@ -140,26 +140,37 @@
 ------------------------------
 
 ### 数字格式化
+
+此数字格式化工具的主要作用是：对数据进行加、减、乘、除 等运算<br/>
+当需要输出显示时，请在最后用 toFixed(小数位数); 进行最后处理显示出来就好<br/>
+操作者只需要关注逻辑
+
 > 使用方法
 
+    // 加
     console.log('add', $.SW.NUM.add(13.2, 13.333333333333));
     // add 26.533333333333
     
+    // 减
     console.log('sub', $.SW.NUM.sub(13.333333333, 12.3333));
     // sub 1.000033333
     
+    // 乘
     console.log('mul', $.SW.NUM.mul(13.333333333, 12.3333));
     // mul 164.4439999958889
     
+    // 除
     console.log('div', $.SW.NUM.div(13.333333333, 12.3333));
     // div 1.0810840029027107
     
     console.log('div', $.SW.NUM.div(10000, 3));
     // div 3333.3333333333335
     
+    // 将百分比转化成小数
     console.log('toDecimal', $.SW.NUM.toDecimal('17%'));
     // toDecimal 0.17
     
+    // 将小数转化成百分比
     console.log('toPercentFormat', $.SW.NUM.toPercentFormat(0.17));
     // toPercentFormat 17%
 
