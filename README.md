@@ -139,3 +139,50 @@
 
 ------------------------------
 
+### 数字格式化
+> 使用方法
+
+    console.log('add', $.SW.NUM.add(13.2, 13.333333333333));
+    // add 26.533333333333
+    
+    console.log('sub', $.SW.NUM.sub(13.333333333, 12.3333));
+    // sub 1.000033333
+    
+    console.log('mul', $.SW.NUM.mul(13.333333333, 12.3333));
+    // mul 164.4439999958889
+    
+    console.log('div', $.SW.NUM.div(13.333333333, 12.3333));
+    // div 1.0810840029027107
+    
+    console.log('div', $.SW.NUM.div(10000, 3));
+    // div 3333.3333333333335
+    
+    console.log('toDecimal', $.SW.NUM.toDecimal('17%'));
+    // toDecimal 0.17
+    
+    console.log('toPercentFormat', $.SW.NUM.toPercentFormat(0.17));
+    // toPercentFormat 17%
+
+------------------------------
+
+### 数据存储
+> 使用方法
+
+    // 返回 boolean true表示浏览器支持本地存储， false表示不支持
+    $.SW.storage.storage
+    
+    // 设置数据 相同的key就是替换
+    $.SW.storage.set('key', {id:1, name:'成功'});
+    $.SW.storage.set('key', '直接存储字符串');
+    $.SW.storage.set('key', 98.3);
+    
+    // 添加数据，返回的是个数组 类似这样的返回值[{},{},'',{}]
+    $.SW.storage.add('key', {id:1, name:'成功'}); 
+    
+    // 获取数据
+    $.SW.storage.get('key');
+    
+    // 清除所有数据 当填入 key 时，只清除 key 的数据
+    $.SW.storage.clear('key'); 
+
+------------------------------

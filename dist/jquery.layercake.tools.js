@@ -55,6 +55,129 @@
         }
     };
 
+    $.SW = {
+        /*******************
+         * 数据本地存储
+         * $.SW.storage.storage 是否支持存储
+         * $.SW.storage.set('key', {id:1, name:'成功'}); // 设置数据 相同的key就是替换
+         * $.SW.storage.add('key', {id:1, name:'成功'}); // 添加数据，返回的是个数组[{},{},'',{}]
+         * $.SW.storage.get('key'); // 获取数据
+         * $.SW.storage.clear(optName); // 清除所有数据 当填入optName时，只清除optName的数据
+         * http://www.html-js.com/article/2635
+         */
+        storage: {
+            storage: !!window.localStorage,
+            set: function (optName, options) {
+                localStorage.setItem(optName, tools.stringify(options));
+                return this;
+            },
+            add: function (optName, options) {
+                if (typeof options !== 'undefined') {
+                    var opts = this.get(optName) || [];
+                    opts.push(options);
+                    this.set(optName, opts);
+                }
+                return this;
+            },
+            get: function (optName) {
+                return tools.parse(localStorage.getItem(optName));
+            },
+            clear: function (optName) {
+                if (typeof optName !== 'undefined') {
+                    localStorage.removeItem(optName);
+                } else {
+                    localStorage.clear();
+                }
+                return this;
+            }
+        },
+        /*****************
+         * 数字格式化
+         * console.log('add', $.SW.NUM.add(13.2, 13.333333333333));
+         * console.log('sub', $.SW.NUM.sub(13.333333333, 12.3333));
+         * console.log('mul', $.SW.NUM.mul(13.333333333, 12.3333));
+         * console.log('div', $.SW.NUM.div(13.333333333, 12.3333));
+         * console.log('toDecimal', $.SW.NUM.toDecimal('17%'));
+         * console.log('toPercentFormat', $.SW.NUM.toPercentFormat(0.17));
+         */
+        NUM: {
+            add: function (arg1, arg2) {
+                var r1, r2, m;
+                try {
+                    r1 = arg1.toString().split(".")[1].length;
+                } catch (e) {
+                    r1 = 0;
+                }
+                try {
+                    r2 = arg2.toString().split(".")[1].length;
+                } catch (e) {
+                    r2 = 0;
+                }
+                m = Math.pow(10, Math.max(r1, r2));
+                return (this.mul(arg1, m) + this.mul(arg2, m)) / m;
+            },
+            sub: function (arg1, arg2) {
+                return this.add(arg1, -arg2);
+            },
+            mul: function (arg1, arg2) {
+                var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+                try {
+                    m += s1.split(".")[1].length;
+                } catch (e) {
+                }
+                try {
+                    m += s2.split(".")[1].length;
+                } catch (e) {
+                }
+                return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+            },
+            div: function (arg1, arg2) {
+                var t1 = 0, t2 = 0, r1, r2;
+                try {
+                    t1 = arg1.toString().split(".")[1].length;
+                } catch (e) {
+                }
+                try {
+                    t2 = arg2.toString().split(".")[1].length;
+                } catch (e) {
+                }
+                r1 = Number(arg1.toString().replace(".", ""));
+                r2 = Number(arg2.toString().replace(".", ""));
+                return (r1 / r2) * Math.pow(10, t2 - t1);
+            },
+            /****
+             * 转化成小数, 原函数 toDecimal(datavalue) 存在的精度问题，因涉及过多屏蔽。
+             * @param datevalue
+             * @returns {*}
+             */
+            toDecimal: function (datevalue) {
+                if (datevalue.indexOf('%') != -1) {
+                    datevalue = datevalue.replace(/%/g, '');
+                    if (datevalue.indexOf(',') != -1) {
+                        datevalue = datevalue.replace(/,/g, '');
+                    }
+                    // 除100精度在原有基础上增加2位。
+                    var decimal = (datevalue.indexOf('.') == -1) ? 0 : (datevalue.length - datevalue.indexOf('.') - 1);
+                    datevalue = this.div(datevalue, 100).toFixed(decimal + 2);
+                } else {
+                    if (datevalue.indexOf(',') != -1) {
+                        datevalue = datevalue.replace(/,/g, '');
+                    }
+                }
+                return datevalue;
+            },
+            /*****
+             * 小数 转 百分比%
+             * @param datevalue
+             * @returns {string}
+             */
+            toPercentFormat: function (datevalue) {
+                var aa = this.mul(datevalue, 100);
+                return "" + aa + "%";
+            }
+        }
+    };
+
     /**********
      * 弹出窗口
      * 调用方式：$('.winOpen').winOpen({url:'链接地址', width:100, height:100});
@@ -239,15 +362,5 @@
 
     };
 
-
-    /*****************
-     * 数字格式化
-     * @param options
-     */
-    $.fn.numberFormat = function(options){
-
-
-
-    };
 
 })(window.jQuery, window, document);
