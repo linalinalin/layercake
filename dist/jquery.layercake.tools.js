@@ -347,7 +347,7 @@
 
                 switch (maxList.length) {
                     case 0:
-                        console.log('没有获取到大图');
+                        alert('对不起，没有得到大图地址');
                         break;
                     case 1:
                         // 显示一张大图

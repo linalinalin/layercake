@@ -1,4 +1,10 @@
 # layercake
+
+cdn地址：<br/>
+http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Fjquery.layercake.tools.min.js<br/>
+http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Flayercake.tools.min.css<br/>
+请在页面内引用此JS和CSS
+
 > layercake内部系统用的jQuery插件<br/>
 > 比如点击小图查看大图，在功能和效果上，只做了layercake系统特定的效果<br/>
 > 数字格式化的效果包含了小数点后8位的处理
