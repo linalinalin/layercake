@@ -67,11 +67,10 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 .header .hd_bd a { color: #FFF; padding-left: 20px; }
 
 
-
 #bodyFrame { width: 1300px; margin: 0 auto; }
 
 
-/** 内容 **/
+/** 内容 修改 **/
 .content { width: 100%; margin: 0;  }
 
 /** 左侧 **/
